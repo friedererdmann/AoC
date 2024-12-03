@@ -1,25 +1,26 @@
-with open("2024/day_03/day_03.txt", "r") as fp:
-    lines = fp.read()
+import re
 
 
 def mul(a, b):
     return a * b
 
-import re
 
+with open("2024/day_03/day_03.txt", "r") as fp:
+    lines = fp.read()
+
+
+# part 1
 mul_pattern = "mul\\(\\d{1,3},\\d{1,3}\\)"
 statements = re.findall(mul_pattern, lines)
 i = sum([eval(s) for s in statements])
 print(i)
 
 
-
+# part 2
 do_pattern = "do\\(\\)"
 dont_pattern = "don't\\(\\)"
-
 do = True
 nr = 0
-
 search = lines
 while True:
     index = len(search)
@@ -48,5 +49,3 @@ while True:
     search = search[c_end:]
 
 print(nr)
-        
-
