@@ -43,40 +43,30 @@ while True:
 
 print(len(visited_fields.keys()))
 
+loops = 0
+for visited in visited_fields:
+    direction = 0
+    position = starting_pos
+    new_field = field.copy()
+    new_field[visited] = "#"
+    loop = False
+    new_visited_fields = {}
+    while True:
+        new_visited_fields[position] = set(list(new_visited_fields.get(position, [])) + [direction])
+        next_step = (position[0] + directions[direction][0], position[1] + directions[direction][1])
+        next_field = new_field.get(next_step)
+        if next_step in new_visited_fields:
+            if direction in new_visited_fields[next_step]:
+                loop = True
+                break
+        if not next_field:
+            break
+        if next_field != "#":
+            position = next_step
+            continue
+        obstructions[next_step] = set(list(obstructions.get(next_step, [])) + [direction])
+        direction += 1
+        direction = direction % len(directions)
+    loops += loop
 
-# def ray_cast(_pos, _dir, max=11):
-#     c = 0
-#     while True:
-#         next_step = (_pos[0] + directions[_dir][0], _pos[1] + directions[_dir][1])
-#         next_field = field.get(next_step)
-#         if not next_field:
-#             return False
-#         if not obstructions.get(next_field):
-#             continue
-#         if (_dir + 1) % len(directions) in obstructions:
-#             return True
-#         _pos = next_step
-#         c += 1
-#         if c > max:
-#             return False
-
-        
-            
-
-# possible_obs = {}
-
-# position = starting_pos
-# while True:
-#     next_step = (position[0] + directions[direction][0], position[1] + directions[direction][1])
-#     next_field = field.get(next_step)
-
-
-#     _dire = visited_fields.get(position)
-#     if not next_field:
-#         break
-#     if next_field != "#":
-#         position = next_step
-#         continue
-#     obstructions[next_step] = set(list(obstructions.get(next_step, [])) + [direction])
-#     direction += 1
-#     direction = direction % len(directions)
+print(loops)
