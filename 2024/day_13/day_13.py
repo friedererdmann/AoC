@@ -15,12 +15,13 @@ def part_two():
 
         prize_x,  prize_y= [10000000000000 + int(x.split('=')[-1]) for x in lines[i + 2].split(':')[1].split(',')] # 8400, # 5400
 
-        b = (prize_y * move_a_x - prize_x * move_a_y) // (move_b_y * move_a_x - move_b_x * move_a_y)
-        a = (prize_x - (move_b_x * b)) // move_a_x
+        b = (prize_y * move_a_x - prize_x * move_a_y) / (move_b_y * move_a_x - move_b_x * move_a_y)
+        a = (prize_x - (move_b_x * b)) / move_a_x
         
-        score += press_a * a + press_b * b
+        if int(a) == a and int(b) == b:
+            score += press_a * a + press_b * b
 
-    print(score)
+    print(int(score))
 
 part_two()
 
